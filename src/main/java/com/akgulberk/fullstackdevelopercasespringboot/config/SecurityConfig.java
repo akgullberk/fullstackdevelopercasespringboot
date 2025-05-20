@@ -76,6 +76,7 @@ public class SecurityConfig {
                 .requestMatchers("/api/auth/**").permitAll()
                 .requestMatchers("/error").permitAll()
                 .requestMatchers("/api/test/**").permitAll()
+                .requestMatchers("/api/digital-cards/**").permitAll()
                 .anyRequest().authenticated()
             );
 

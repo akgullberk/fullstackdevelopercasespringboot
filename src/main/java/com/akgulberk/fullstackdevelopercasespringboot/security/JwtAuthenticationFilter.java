@@ -28,16 +28,23 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
         try {
             String jwt = getJwtFromRequest(request);
+            logger.info("JWT token from request: " + (jwt != null ? "token exists" : "token is null"));
 
             if (StringUtils.hasText(jwt) && tokenProvider.validateToken(jwt)) {
                 String username = tokenProvider.getUsernameFromToken(jwt);
+                logger.info("Username from token: " + username);
+                
                 UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+                logger.info("UserDetails loaded: " + (userDetails != null ? "success" : "failed"));
 
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
                         userDetails, null, userDetails.getAuthorities());
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
                 SecurityContextHolder.getContext().setAuthentication(authentication);
+                logger.info("Authentication set in SecurityContext");
+            } else {
+                logger.warn("JWT token validation failed or token is empty");
             }
         } catch (Exception ex) {
             logger.error("JWT authentication failed", ex);

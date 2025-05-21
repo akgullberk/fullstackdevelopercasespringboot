@@ -22,7 +22,7 @@ public class DigitalCardRequest {
 
     private List<SocialMediaLinkRequest> socialMediaLinks;
 
-    private List<@Size(min = 2, max = 50, message = "Yetenek adı 2-50 karakter arasında olmalıdır") String> skills;
+    private List<@Size(min = 2, max = 11, message = "Yetenek adı 2-11 karakter arasında olmalıdır") String> skills;
 
     @Data
     public static class SocialMediaLinkRequest {

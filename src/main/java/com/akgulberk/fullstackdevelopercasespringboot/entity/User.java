@@ -27,6 +27,9 @@ public class User {
     private String name;
     private String surname;
 
+    @Column
+    private String profilePhotoUrl;
+
     // Getter metodları
     public Long getId() {
         return id;
@@ -52,6 +55,10 @@ public class User {
         return surname;
     }
 
+    public String getProfilePhotoUrl() {
+        return profilePhotoUrl;
+    }
+
     // Setter metodları
     public void setId(Long id) {
         this.id = id;
@@ -75,5 +82,9 @@ public class User {
 
     public void setSurname(String surname) {
         this.surname = surname;
+    }
+
+    public void setProfilePhotoUrl(String profilePhotoUrl) {
+        this.profilePhotoUrl = profilePhotoUrl;
     }
 } 

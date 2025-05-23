@@ -46,4 +46,9 @@ public class UserService {
                 .getAuthentication()
                 .getName();
     }
+
+    public User findByUsername(String username) {
+        return userRepository.findByUsername(username)
+                .orElseThrow(() -> new RuntimeException("Kullanıcı bulunamadı: " + username));
+    }
 } 

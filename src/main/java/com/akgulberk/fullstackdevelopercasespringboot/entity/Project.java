@@ -18,7 +18,7 @@ public class Project {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, length = 40)
+    @Column(nullable = false, columnDefinition = "TEXT")
     @Size(max = 40, message = "Proje ismi 40 karakterden uzun olamaz")
     private String name;
 

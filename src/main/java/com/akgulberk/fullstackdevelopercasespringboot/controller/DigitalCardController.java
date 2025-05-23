@@ -2,6 +2,7 @@ package com.akgulberk.fullstackdevelopercasespringboot.controller;
 
 import com.akgulberk.fullstackdevelopercasespringboot.dto.DigitalCardRequest;
 import com.akgulberk.fullstackdevelopercasespringboot.dto.DigitalCardResponse;
+import com.akgulberk.fullstackdevelopercasespringboot.dto.DigitalCardWithProjectsResponse;
 import com.akgulberk.fullstackdevelopercasespringboot.service.DigitalCardService;
 import jakarta.validation.Valid;
 import jakarta.validation.ConstraintViolationException;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -35,6 +37,11 @@ public class DigitalCardController {
         return ResponseEntity.ok(digitalCardService.getDigitalCard(username));
     }
 
+    @GetMapping("/{username}/with-projects")
+    public ResponseEntity<DigitalCardWithProjectsResponse> getDigitalCardWithProjects(@PathVariable String username) {
+        return ResponseEntity.ok(digitalCardService.getDigitalCardWithProjects(username));
+    }
+
     @PutMapping
     public ResponseEntity<DigitalCardResponse> updateDigitalCard(
             @AuthenticationPrincipal UserDetails userDetails,
@@ -46,6 +53,11 @@ public class DigitalCardController {
     public ResponseEntity<Void> deleteDigitalCard(@AuthenticationPrincipal UserDetails userDetails) {
         digitalCardService.deleteDigitalCard(userDetails.getUsername());
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<DigitalCardResponse>> getAllDigitalCards() {
+        return ResponseEntity.ok(digitalCardService.getAllDigitalCards());
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

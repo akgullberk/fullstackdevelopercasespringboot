@@ -39,10 +39,7 @@ public class ProjectController {
 
     @GetMapping("/{projectId}")
     public ResponseEntity<ProjectDTO> getProjectDetails(@PathVariable Long projectId) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        String username = userDetails.getUsername();
-        ProjectDTO project = projectService.getProjectDetails(projectId, username);
+        ProjectDTO project = projectService.getProjectDetails(projectId);
         return ResponseEntity.ok(project);
     }
 

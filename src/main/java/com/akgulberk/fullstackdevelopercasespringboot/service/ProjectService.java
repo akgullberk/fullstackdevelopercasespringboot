@@ -49,17 +49,9 @@ public class ProjectService {
     }
 
     @Transactional(readOnly = true)
-    public ProjectDTO getProjectDetails(Long projectId, String username) {
-        User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new RuntimeException("User not found"));
-
+    public ProjectDTO getProjectDetails(Long projectId) {
         Project project = projectRepository.findById(projectId)
-                .orElseThrow(() -> new RuntimeException("Project not found"));
-
-        // Güvenlik kontrolü: Projenin sahibi olan kullanıcı mı görüntülüyor?
-        if (!project.getUser().getId().equals(user.getId())) {
-            throw new AccessDeniedException("You don't have permission to view this project");
-        }
+                .orElseThrow(() -> new RuntimeException("Proje bulunamadı"));
 
         return convertToDTO(project);
     }

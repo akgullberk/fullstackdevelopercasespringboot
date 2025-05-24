@@ -18,7 +18,9 @@ public class ProjectDTO {
     @Size(max = 40, message = "Proje ismi 40 karakterden uzun olamaz")
     private String name;
 
+    @Size(max = 100, message = "Proje açıklaması 100 karakterden uzun olamaz")
     private String description;
+
     private List<String> technologies;
     private String githubLink;
 } 

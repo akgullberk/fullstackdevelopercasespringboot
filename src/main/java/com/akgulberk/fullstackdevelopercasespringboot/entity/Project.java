@@ -23,6 +23,7 @@ public class Project {
     private String name;
 
     @Column(columnDefinition = "TEXT")
+    @Size(max = 100, message = "Proje açıklaması 100 karakterden uzun olamaz")
     private String description;
 
     @ElementCollection

@@ -56,4 +56,14 @@ public class ProjectController {
         ProjectDTO updatedProject = projectService.updateProject(projectId, projectDTO, username);
         return ResponseEntity.ok(updatedProject);
     }
+
+    @DeleteMapping("/{projectId}")
+    public ResponseEntity<Void> deleteProject(@PathVariable Long projectId) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        String username = userDetails.getUsername();
+        
+        projectService.deleteProject(projectId, username);
+        return ResponseEntity.noContent().build();
+    }
 } 

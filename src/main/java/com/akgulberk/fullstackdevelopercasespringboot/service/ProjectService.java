@@ -87,6 +87,22 @@ public class ProjectService {
         return convertToDTO(updatedProject);
     }
 
+    @Transactional
+    public void deleteProject(Long projectId, String username) {
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new RuntimeException("Kullanıcı bulunamadı"));
+
+        Project project = projectRepository.findById(projectId)
+                .orElseThrow(() -> new RuntimeException("Proje bulunamadı"));
+
+        // Güvenlik kontrolü: Projenin sahibi olan kullanıcı mı silmeye çalışıyor?
+        if (!project.getUser().getId().equals(user.getId())) {
+            throw new AccessDeniedException("Bu projeyi silmek için yetkiniz yok");
+        }
+
+        projectRepository.delete(project);
+    }
+
     private ProjectDTO convertToDTO(Project project) {
         return new ProjectDTO(
                 project.getId(),
